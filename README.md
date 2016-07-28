@@ -22,4 +22,4 @@ The main principle:
     ![screenshoot](https://github.com/mikhailrojo/scanner/blob/master/radar.jpg "Screen shot")
 
     This is how it looks like assembled:
-    ![photo](https://github.com/mikhailrojo/scanner/blob/master/photo.JPS "Assembled")
+    ![photo](https://github.com/mikhailrojo/scanner/blob/master/photo.JPG "Assembled")
