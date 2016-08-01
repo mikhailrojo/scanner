@@ -1,0 +1,25 @@
+{
+  "name": "scanner",
+  "version": "1.0.0",
+  "description": "This is ugly radar first tryout.\r I combined:\r * sonar radar HC-SR04\r * Servo SG90\r * Arduino Uno",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikhailrojo/scanner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikhailrojo/scanner/issues"
+  },
+  "homepage": "https://github.com/mikhailrojo/scanner#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "serialport": "^4.0.1",
+    "socket.io": "^1.4.8"
+  }
+}

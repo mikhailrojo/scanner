@@ -6,48 +6,68 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <title>Радар</title>
+<style>
+.point {
+    height: 8px;
+    width: 8px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    background: blue;
+    position: absolute;
+}
+</style>
 </head>
 <body>
 
 
-  <div id="svg" style:""></div>
-
 
 
 <script>
-var socket = io.connect("http://localhost:3000");
-var x = 0;
-var y = 0;
-var width = 250;
-d3.select("#svg")
-    .append("svg")
-    .attr("id", "mainSvg")
-    .style("width", width)
-    .style("height", 500)
-    .style("background-color", "purple")
 
 
-socket.on("message", function(data){
-    //console.log(data);
-    var digit = parseInt(data);
-    d3.select("#mainSvg")
-    //.select("rect")
-    .append("rect")
-        .attr("fill", "black")
-        .attr("width", 10)
-        .attr("height", 3)
-        .attr("x", x)
-        .attr("y", digit)
-        .style("fill", "yellow")
-        .style("opacity", 1)
-        .transition()
-        .duration(5000)
-        .style("opacity", 0)
-        .remove()
-    x+= 5;
-    if(x > width){x = 0}
+$(function() {
+    var socket = io.connect("http://localhost:3000");
+    var h = $(document).height();
+    var w = $(document).width();
+    var minDimension = h < w ? h : w;
+    var radius = (minDimension / 2) - 20;
+    var deg = 0;
+    var random = 0;
 
-})
+    socket.on("message", function(data){
+
+        deg += 3.6;
+        var digit = parseInt(data);
+        //console.log(digit);
+        digit = digit/300;
+        createDiv(deg, digit);
+        if(deg > 180){ deg = 0}
+      });
+
+
+    function createDiv(degIn, distIn){
+      var point2 = getPoint(radius,degIn, distIn);
+      var offset2 = {
+        top: point2.y + radius + 10,
+        left: point2.x + radius + 10
+      }
+
+      $("<div>").addClass("point").appendTo("body").offset(offset2).fadeOut(11000, function(){
+        $(this).remove();
+      });
+    }
+
+    function getPoint(totalRadius, deg, distance) {
+      var degree = 0.002777777777 * deg;
+      var angle = degree * Math.PI * 2;
+      return {
+          x: Math.cos(angle) * totalRadius*distance, // -1
+          y: Math.sin(angle) * totalRadius*distance // 0
+      };
+    }
+
+});
+
 
 
 </script>

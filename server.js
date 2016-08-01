@@ -1,4 +1,4 @@
-var socket = require("socket.io")(80),
+var socket = require("socket.io")(),
     http = require("http"),
     app = require("express")(),
     SerialPort = require("serialport");
@@ -11,7 +11,7 @@ app.get("/", function(req, res){
     res.send("<h1>Сервер врубился</h1>")
 });
 
-port = new SerialPort("COM3", {
+port = new SerialPort("/dev/cu.wchusbserial1420", {
     baudrate: 9600
 });
 
